@@ -1,0 +1,39 @@
+.viewButton{
+    font-size:14px !important;
+    padding:1px !important;
+    padding-right:5px !important;
+    padding-left:5px !important;
+    margin:0px !important;
+}
+
+.divSpinner{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.form-input-search{
+    width:400px;
+    padding:5px !important;
+    border-radius:8px;
+    border-color:#6c757d;
+    border:1px solid;
+    color:#6c757d;
+    margin-top:20px;
+    margin-bottom:20px
+}
+
+.toTop{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display:content;
+    width:35px;
+    border:2px solid black;
+    border-radius:50%;
+}
+
+.toTop:hover{
+    cursor:pointer
+}
