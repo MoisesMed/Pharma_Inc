@@ -1,13 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import InfiniteScroll from 'react-infinite-scroller';
 import {
-    Container, Button, InputGroup, FormControl, Form,
-    Col, Row, Table, Spinner, Dropdown, DropdownButton, ButtonGroup
+    Container,
+    Button,
+    Table,
+    Spinner,
+    Dropdown,
+    DropdownButton,
+    ButtonGroup
 } from "react-bootstrap";
-import ActionBar from "../../components/ActionBar/ActionBar"
 import moment from "moment"
 import VisualizarPaciente from "../../components/VisualizarPaciente/VisualizarPaciente"
+import arrow from "../../assets/img/arrow.svg"
 
 import { api } from "../../api"
 
@@ -16,7 +20,6 @@ import "./styles.css";
 export default function Home() {
     const [results, setResults] = useState([])
     const [list, setList] = useState(results)
-    const [inputData, setInputData] = useState("")
     const [page, setPage] = useState(2)
     const [show, setShow] = useState(false)
     const [personSelected, setPersonSelected] = useState([])
@@ -24,24 +27,58 @@ export default function Home() {
     const [orderName, setOrderName] = useState(false)
     const [orderGender, setOrderGender] = useState(false)
     const [qtd, setQtd] = useState([50])
-    const [nat, setNat] = useState(false)
-    const [name, setName] = useState(true)
 
+    const [visible, setVisible] = useState(false)
 
-    useEffect(() => {
-        const handleSearch = () => {
-            if (inputData === "") {
-                setList(results)
-            } else {
-                setList(
-                    nat ?
-                        list.filter(item => (item.nat.toLowerCase().indexOf(inputData.toLowerCase()) > -1)) :
-                        list.filter(item => (item.name.first.toLowerCase().indexOf(inputData.toLowerCase()) > -1))
-                )
-            }
+    const toggleVisible = () => {
+        const scrolled = document.documentElement.scrollTop;
+        if (scrolled > 400) {
+            setVisible(true)
         }
-        handleSearch()
-    }, [inputData])
+        else if (scrolled <= 400) {
+            setVisible(false)
+        }
+    };
+
+    window.addEventListener('scroll', toggleVisible);
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
+    const refSearch = useRef()
+
+    const handleSearch = (searchValue) => {
+        if (!searchValue) {
+            return setList(results);
+        }
+
+        searchValue = searchValue.toLowerCase();
+
+        const newList = results.filter((person) => {
+            const nation = person.nat
+                .toLowerCase()
+                .includes(searchValue)
+
+            const name = String(
+                `${person.name.first} ${person.name.last}`
+            )
+                .toLowerCase()
+                .includes(searchValue);
+
+            const date = moment(person.dob.date)
+                .format('MM/DD/YYYY')
+                .toLowerCase()
+                .includes(searchValue);
+
+            return nation || name || date;
+        });
+
+        return setList(newList);
+    };
 
     const handleOrderName = () => {
         let newList = [...results];
@@ -102,14 +139,17 @@ export default function Home() {
         try {
             const response = await api.get(`?results=${qtd}&seed=abcde&page=${page}`)
             const newArray = [...results, ...response.data.results]
+
             setResults(newArray)
             setList(newArray)
+            if (!!refSearch.current.value) {
+                handleSearch(refSearch.current.value)
+            }
         } catch (erro) {
             console.log(erro)
         } finally {
             setIsLoading(false)
             setPage(page + 1)
-            setInputData("")
         }
     }
     const showModal = (item) => {
@@ -121,61 +161,21 @@ export default function Home() {
         setShow(false)
     }
 
-    const changeChecked = () => {
-        setName(!name)
-        setNat(!nat)
-    }
-
     return (
         <Container className="mainContainer">
-            <br />
-            <text style={{ width: "60%", textAlign: "center", fontFamily: "Roboto" }}>
+            <text style={{ width: "60%", textAlign: "center", fontFamily: "Roboto", fontSize: 17, fontWeight: 500, marginTop: 20 }}>
                 We at Pharma Inc, always thinking of offering our best services, developed this website to make the management and visualization of our patients' information more efficient and streamline our service.
             </text>
-            <text style={{ width: "50%", textAlign: "center", fontFamily: "Roboto", marginTop: 8 }}>
+            <text style={{ width: "50%", textAlign: "center", fontFamily: "Roboto", marginTop: 8, fontSize: 17, fontWeight: 500 }}>
                 In the list below, you can search for patients by name and nationality. You can also sort the NAME table alphabetically.
             </text>
-            <br />
-            <Row>
-                <Col className="colInputSearch">
-                    <input
-                        className="form-input-search"
-                        value={inputData}
-                        onChange={(e) => setInputData(e.target.value)}
-                        id="input-table"
-                        placeholder="Search for name or nationality"
-                    />
-                </Col>
-                <Col>
-                    <Row style={{ justifyContent: "center" }}>
-                        Name
-                    </Row>
-                    <Row style={{ textAlign: "center" }}>
-                        <Form.Check
-                            inline
-                            type={"checkbox"}
-                            value={name}
-                            checked={name}
-                            onClick={() => changeChecked()}
-                        />
-                    </Row>
-                </Col>
-                <Col>
-                    <Row style={{ justifyContent: "center" }}>
-                        Nationality
-                    </Row>
-                    <Row style={{ textAlign: "center" }}>
-                        <Form.Check
-                            inline
-                            type={"checkbox"}
-                            value={nat}
-                            checked={nat}
-                            onClick={() => changeChecked()}
-                        />
-                    </Row>
-                </Col>
-            </Row>
-            <br />
+            <input
+                className="form-input-search"
+                ref={refSearch}
+                onChange={(e) => handleSearch(e.target.value)}
+                id="input-table"
+                placeholder="Search for name or nationality"
+            />
             <DropdownButton as={ButtonGroup} title="Quantity for Load " id="bg-vertical-dropdown-1" variant="secondary">
                 <Dropdown.Item onClick={() => setQtd(10)} eventKey="1">10</Dropdown.Item>
                 <Dropdown.Item onClick={() => setQtd(25)} eventKey="2">25</Dropdown.Item>
@@ -235,9 +235,9 @@ export default function Home() {
                         )}
                     </tbody>
                     {show ? <VisualizarPaciente show={show} close={closeModal} personSelected={personSelected} /> : null}
-
                 </Table>
             </InfiniteScroll>
+            <img style={{ display: visible ? 'inline' : 'none' }} onClick={() => scrollToTop()} className="toTop" src={arrow} />
         </Container >
     )
 }

@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useMemo } from "react";
-import InfiniteScroll from 'react-infinite-scroller';
+import React from "react";
 import {
-    Container,
-    Col, Row, Table, Modal, Button
+    Col,
+    Row,
+    Modal
 } from "react-bootstrap";
-import ActionBar from "../../components/ActionBar/ActionBar"
 import moment from "moment"
 
 
@@ -13,7 +12,7 @@ import "./styles.css";
 
 export default function VisualizarPaciente(props) {
     const { show, close, personSelected } = props
-    console.log(personSelected)
+
     return (
         <Modal
             show={show}

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import {
-    Container,
-    Col, Row, Navbar, Nav, NavDropdown
+    Navbar,
+    Nav,
 } from "react-bootstrap";
 
 import "./styles.css";
@@ -18,8 +18,6 @@ export default function ActionBar() {
                 style={{ right: 10 }}>
                 <img src={account} />
             </Nav.Link>
-
-
         </Navbar>
     );
 };

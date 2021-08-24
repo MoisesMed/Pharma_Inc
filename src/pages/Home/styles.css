@@ -21,13 +21,6 @@
     display: flex;
 }
 
-.colInputSearch{
-        text-align: center;
-    justify-content: center;
-    align-items: center !important;
-    display: flex;
-}
-
 .form-input-search{
     width:400px;
     padding:5px !important;
@@ -35,5 +28,20 @@
     border-color:#6c757d;
     border:1px solid;
     color:#6c757d;
-    
+    margin-top:20px;
+    margin-bottom:20px
+}
+
+.toTop{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display:content;
+    width:35px;
+    border:2px solid black;
+    border-radius:50%;
+}
+
+.toTop:hover{
+    cursor:pointer
 }
