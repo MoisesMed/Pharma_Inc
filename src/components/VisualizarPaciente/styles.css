@@ -1,0 +1,36 @@
+.mainRowModal{
+        justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.personImg{
+    width:150px !important;
+    border-radius:50%;
+    border: 6px solid #dedede !important;
+    margin-top:-60px;
+    margin-bottom:25px
+}
+
+.modal-dialog{
+    min-width: 610px !important;
+    justify-content: center !important;
+}
+
+.rowModal{
+    font-family: Roboto !important;
+    font-size:17px;
+    padding:2px;
+    padding-bottom:5px
+}
+
+.xButton{    
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    border: none;
+    background: none;
+    font-family: system-ui;
+}
