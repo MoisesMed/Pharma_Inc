@@ -20,3 +20,20 @@
     align-items: center;
     display: flex;
 }
+
+.colInputSearch{
+        text-align: center;
+    justify-content: center;
+    align-items: center !important;
+    display: flex;
+}
+
+.form-input-search{
+    width:400px;
+    padding:5px !important;
+    border-radius:8px;
+    border-color:#6c757d;
+    border:1px solid;
+    color:#6c757d;
+    
+}
