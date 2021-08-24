@@ -9,14 +9,17 @@
     border-radius:50%;
     border: 6px solid #dedede !important;
     margin-top:-60px;
-    margin-bottom:25px
+    margin-bottom:25px;
 }
 
 .modal-dialog{
     min-width: 610px !important;
     justify-content: center !important;
+    
 }
-
+.modal-content{
+    border-radius:12px !important
+}
 .rowModal{
     font-family: Roboto !important;
     font-size:17px;
@@ -33,4 +36,8 @@
     border: none;
     background: none;
     font-family: system-ui;
+}
+
+.modal-backdrop.show {
+    opacity: 0.7 !important;
 }

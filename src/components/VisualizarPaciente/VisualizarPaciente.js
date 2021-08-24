@@ -22,7 +22,7 @@ export default function VisualizarPaciente(props) {
             size="xs"
             centered
         >
-            <Modal.Body >
+            <Modal.Body style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}  >
                 <Col className="mainRowModal">
                     <img src={personSelected.picture.large} className="personImg" />
                     <button className="xButton" onClick={() => close()}>X</button>
@@ -31,11 +31,11 @@ export default function VisualizarPaciente(props) {
                             <Row className="rowModal">Name: {personSelected.name.first} {personSelected.name.last} </Row>
                             <Row className="rowModal">Email: {personSelected.email}</Row>
                             <Row className="rowModal">Cell: {personSelected.cell}</Row>
-                            <Row className="rowModal">ID: {personSelected.id.value}</Row>
+                            {personSelected.id.value ? <Row className="rowModal">ID: {personSelected.id.value}</Row> : null}
                             <Row className="rowModal">  Nationality: {personSelected.nat} </Row>
                         </Col>
                         <Col style={{ textAlign: "initial" }}>
-                            <Row className="rowModal">Birth date: {moment(personSelected.dob.date).format('YYYY/MM/DD')}</Row>
+                            <Row className="rowModal">Birth date: {moment(personSelected.dob.date).format('MM/DD/YYYY')}</Row>
                             <Row className="rowModal">Gender: {personSelected.gender}</Row>
                             <Row className="rowModal">
                                 Address: {personSelected.location.street.number} {personSelected.location.street.name} </Row>
