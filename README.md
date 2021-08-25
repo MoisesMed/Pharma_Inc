@@ -1,6 +1,9 @@
 <h2>O que é este projeto?</h2>
-<p>Projeto de listar pacientes para farmácia.</p>
+<p>Projeto Front end challenger.</p>
 
+<h2>Case</h2>
+A empresa Pharma Inc, está trabalhando em um projeto em colaboração com sua base de clientes para facilitar a gestão e visualização da informação dos seus pacientes de maneira simples e objetiva em um Dashboard onde podem listar, filtrar e expandir os dados disponíveis.
+O seu objetivo nesse projeto, é trabalhar no desenvolvimento do Front end que consumirá a API da empresa Pharma Inc seguindo os requisitos propostos neste desafio.
 
 <h2>Sobre o desenvolvimento</h2>
 <p>Projeto desenvolvido em cima da API https://randomuser.me/ </p>
