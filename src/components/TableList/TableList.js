@@ -5,12 +5,9 @@ import {
     Button,
     Table,
     Spinner,
-    Dropdown,
-    DropdownButton,
-    ButtonGroup
 } from "react-bootstrap";
 import moment from "moment"
-import VisualizarPaciente from "../VisualizarPaciente/VisualizarPaciente"
+import VisualizarPaciente from "../../components/VisualizarPaciente/VisualizarPaciente"
 import arrow from "../../assets/img/arrow.svg"
 
 import { api } from "../../api"
@@ -27,6 +24,7 @@ export default function TableList() {
     const [orderName, setOrderName] = useState(false)
     const [orderGender, setOrderGender] = useState(false)
     const [qtd, setQtd] = useState([50])
+
     const [visible, setVisible] = useState(false)
 
     const toggleVisible = () => {
@@ -49,34 +47,63 @@ export default function TableList() {
     };
 
     const refSearch = useRef()
+    const refFilterSearch = useRef()
 
     const handleSearch = (searchValue) => {
         if (!searchValue) {
             return setList(results);
         }
 
-        searchValue = searchValue.toLowerCase();
+        if (!!refFilterSearch.current.value) {
+            searchValue = searchValue.toLowerCase();
 
-        const newList = results.filter((person) => {
-            const nation = person.nat
-                .toLowerCase()
-                .includes(searchValue)
+            if (refFilterSearch.current.value === 'all') {
+                const newList = results.filter((person) => {
+                    const nation = person.nat
+                        .toLowerCase()
+                        .includes(searchValue);
 
-            const name = String(
-                `${person.name.first} ${person.name.last}`
-            )
-                .toLowerCase()
-                .includes(searchValue);
+                    const name = String(
+                        `${person.name.first} ${person.name.last}`
+                    )
+                        .toLowerCase()
+                        .includes(searchValue);
 
-            const date = moment(person.dob.date)
-                .format('MM/DD/YYYY')
-                .toLowerCase()
-                .includes(searchValue);
+                    const date = moment(person.dob.date)
+                        .format('MM/DD/YYYY')
+                        .toLowerCase()
+                        .includes(searchValue);
 
-            return nation || name || date;
-        });
+                    return nation || name || date;
+                });
 
-        return setList(newList);
+                return setList(newList);
+            }
+            if (refFilterSearch.current.value === 'name') {
+                const newList = results.filter((person) => {
+                    const name = String(
+                        `${person.name.first} ${person.name.last}`
+                    )
+                        .toLowerCase()
+                        .includes(searchValue);
+
+                    return name;
+                });
+
+                return setList(newList);
+            }
+            if (refFilterSearch.current.value === 'nation') {
+                const newList = results.filter((person) => {
+                    const nation = person.nat
+                        .toLowerCase()
+                        .includes(searchValue);
+
+                    return nation;
+                });
+
+                return setList(newList);
+            }
+        }
     };
 
     const handleOrderName = () => {
@@ -151,7 +178,6 @@ export default function TableList() {
             setPage(page + 1)
         }
     }
-
     const showModal = (item) => {
         setShow(true);
         setPersonSelected(item);
@@ -176,11 +202,39 @@ export default function TableList() {
                 id="input-table"
                 placeholder="Search for name or nationality"
             />
-            <DropdownButton as={ButtonGroup} title="Quantity for Load " id="bg-vertical-dropdown-1" variant="secondary">
-                <Dropdown.Item onClick={() => setQtd(10)} eventKey="1">10</Dropdown.Item>
-                <Dropdown.Item onClick={() => setQtd(25)} eventKey="2">25</Dropdown.Item>
-                <Dropdown.Item onClick={() => setQtd(50)} eventKey="3">50</Dropdown.Item>
-            </DropdownButton>
+
+            <div className="form-search-container">
+                <select
+                    size="sm"
+                    defaultValue={String(qtd)}
+                    className="form-input-search"
+                    onChange={(e) => {
+                        setQtd(Number.parseInt(e.target.value))
+                    }
+                    }
+                >
+                    <option value="10">10 person</option>
+                    <option value="25">25 person</option>
+                    <option value="30">30 person</option>
+                    <option value="50">50 person</option>
+                </select>
+
+                <select
+                    size="sm"
+                    defaultValue="all"
+                    className="form-input-search"
+                    ref={refFilterSearch}
+                    onChange={() => {
+                        if (!!refSearch.current.value) {
+                            return handleSearch(refSearch.current.value)
+                        }
+                    }}
+                >
+                    <option value="all">Search all with filters</option>
+                    <option value="name">Only search by name</option>
+                    <option value="nation">Only search by nation</option>
+                </select>
+            </div>
             <br />
             <InfiniteScroll
                 pageStart={page}
