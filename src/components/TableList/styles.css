@@ -35,7 +35,7 @@
     border-color: #6c757d;
     border: 1px solid;
     color: #6c757d;
-margin-top:10px;
+    margin-top:10px;
     background-color: #fff;
 }
 
@@ -52,4 +52,18 @@ margin-top:10px;
 .form-search-container select {
     width: 250px;
     background-color: #fff;
+}
+
+.toTop{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display:content;
+    width:35px;
+    border:2px solid black;
+    border-radius:50%;
+}
+
+.toTop:hover{
+    cursor:pointer
 }
