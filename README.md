@@ -1,4 +1,4 @@
-<h2> Front-End Challenge 🏅 2021 </h2>
+<h2> Front-End Challenge by coodesh 🏅 2021 </h2>
 
 <h2>O que é este projeto?</h2>
 <p>Projeto Front end challenger.</p>
@@ -17,7 +17,13 @@ O seu objetivo nesse projeto, é trabalhar no desenvolvimento do Front end que c
     <li>CSS</li>
     <li>React.JS</li>
     <li>Bootstrap</li>
+    <li>Axios</li>
+    <li>React Table</li>
 </ul>
+
+<h2>Como instalar o projeto</h2>
+<p>Baixe o projeto no github e use NPM INSTALL para instalar a node modules, depois da instalação use NPM START.</p>
+
 
 <hr>
 
@@ -31,4 +37,3 @@ https://pharma-inc-zeta.vercel.app/
 
 
 <span style="text-align:end;">Desenvoldido por <b>Moisés Medeiros</b>.<span>
-
