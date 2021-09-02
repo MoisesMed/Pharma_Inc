@@ -288,8 +288,8 @@ export default function TableList() {
                             </tr>
                         )}
                     </tbody>
-                    {show ? <VisualizarPaciente show={show} close={closeModal} personSelected={personSelected} /> : null}
                 </Table>
+                {show ? <VisualizarPaciente show={show} close={closeModal} personSelected={personSelected} /> : null}
             </InfiniteScroll>
             <img style={{ display: visible ? 'inline' : 'none' }} onClick={() => scrollToTop()} className="toTop" src={arrow} />
         </Container >
