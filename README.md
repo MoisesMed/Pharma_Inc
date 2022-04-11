@@ -28,7 +28,7 @@ O seu objetivo nesse projeto, é trabalhar no desenvolvimento do Front end que c
 <hr>
 
 <h3>O projeto está disponível em : 
-<a href="https://moises-portfolio.vercel.app" target="_blank"> 
+<a href="pharma-inc-zeta.vercel.app" target="_blank"> 
 https://pharma-inc-zeta.vercel.app/
 </a> </h3>
 <br>
